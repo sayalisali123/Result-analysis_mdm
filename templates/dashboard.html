@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="dashboard-grid">
+    <!-- Card 1: Result Analysis -->
+    <a href="{{ url_for('student_results') }}" class="dashboard-card glass-panel fade-in-up" style="animation-delay: 0.1s; text-decoration: none; color: inherit;">
+        <div class="dashboard-icon">📊</div>
+        <div class="card-header" style="justify-content: center;">
+            <h3>Result Analysis</h3>
+        </div>
+        <p class="card-desc">Upload and analyze your academic results PDF.</p>
+        <div class="mt-2">
+            <span class="btn-primary">Go to Analysis</span>
+        </div>
+    </a>
+
+    <!-- Card 2: Minor Degree Allocation -->
+    <a href="{{ url_for('student_mdm') }}" class="dashboard-card glass-panel fade-in-up" style="animation-delay: 0.2s; text-decoration: none; color: inherit;">
+        <div class="dashboard-icon">🎓</div>
+        <div class="card-header" style="justify-content: center;">
+            <h3>Minor Degree Allocation</h3>
+        </div>
+        <p class="card-desc">Apply for minor degree branches and set preferences.</p>
+        <div class="mt-2">
+            <span class="btn-primary">Go to Allocation</span>
+        </div>
+    </a>
+</div>
+{% endblock %}
