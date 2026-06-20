@@ -4,7 +4,17 @@
 
 The Result Analysis & Minor Degree Allocation System is a web-based academic management platform designed to automate student result analysis and minor degree allocation processes.
 
-The system allows students to upload result PDFs, automatically extracts academic information using Gemini AI, stores the processed data in Firebase Firestore, and enables faculty members to manage minor degree allocations based on student preferences and academic performance.
+The system enables students to upload academic result PDFs, automatically extracts and analyzes academic information, stores processed data in Firebase Firestore, and allows faculty members to manage student records, analyze performance, allocate minor degree seats, and generate reports.
+
+---
+
+## Live Demo
+
+🚀 **Deployed Application**
+
+https://result-analysis-mdm.onrender.com
+
+> Note: The application is hosted on Render's free tier. The first request may take a few seconds if the service is waking up from inactivity.
 
 ---
 
@@ -15,6 +25,7 @@ The system allows students to upload result PDFs, automatically extracts academi
 * Student Registration and Login
 * Secure Authentication using Flask-Login
 * Upload Academic Result PDFs
+* Automatic Result Analysis
 * View Submitted Results
 * Submit Minor Degree Preferences
 * Track Submitted Applications
@@ -26,14 +37,32 @@ The system allows students to upload result PDFs, automatically extracts academi
 * Analyze Academic Performance
 * Manage Minor Degree Applications
 * Automated Seat Allocation
-* Export Reports to Excel
+* Download Reports in Excel Format
 
 ### AI-Powered Analysis
 
-* PDF Result Extraction 
-* Automatic Subject-wise Data Processing
-* Academic Performance Summary Generation
-* Automated Result Analysis Workflow
+* PDF Result Extraction
+* Subject-wise Marks Analysis
+* Performance Summary Generation
+* Automated Academic Data Processing
+* Intelligent Result Interpretation using Gemini AI
+
+---
+
+## System Architecture
+
+Student → Flask Application → Gemini AI → Firebase Firestore
+
+### Workflow
+
+1. Student registers and logs in.
+2. Student uploads a result PDF.
+3. Academic information is extracted from the PDF.
+4. Processed data is stored in Firebase Firestore.
+5. Student submits Minor Degree preferences.
+6. Faculty reviews student records.
+7. The system performs seat allocation based on preferences and academic performance.
+8. Faculty can export reports in Excel format.
 
 ---
 
@@ -49,14 +78,12 @@ The system allows students to upload result PDFs, automatically extracts academi
 
 * Firebase Firestore
 
-### AI Integration
-
-* Google Gemini AI API
 
 ### Data Processing
 
 * Pandas
 * OpenPyXL
+* PDFPlumber
 
 ### Frontend
 
@@ -67,21 +94,55 @@ The system allows students to upload result PDFs, automatically extracts academi
 
 ### Deployment
 
-* Vercel
-* Firebase
+* Render
+* Firebase Firestore
 
 ---
 
-## Project Workflow
+## Key Functionalities
 
-1. Student registers and logs into the system.
-2. Student uploads a result PDF.
-3. Gemini AI extracts and processes academic data.
-4. Processed information is stored in Firebase Firestore.
-5. Student submits Minor Degree preferences.
-6. Faculty reviews applications and academic records.
-7. The system performs seat allocation based on preferences and eligibility.
-8. Reports can be exported as Excel files.
+### AI-Based Result Analysis
+
+* Extracts academic information directly from uploaded result PDFs.
+* Generates structured academic records.
+* Calculates performance summaries.
+
+### Student Management
+
+* Registration and authentication.
+* Result uploads.
+* Minor degree application submission.
+
+### Faculty Management
+
+* Access student records.
+* Review analyzed results.
+* Manage minor degree allocation.
+* Generate downloadable reports.
+
+### Report Generation
+
+* Excel export using OpenPyXL.
+* Detailed subject-wise analysis.
+* Allocation reports for faculty.
+
+### Cloud Database Integration
+
+* Firebase Firestore integration.
+* Real-time storage and retrieval of academic records.
+
+---
+
+## Technical Highlights
+
+* Secure authentication using Flask-Login.
+* Intelligent PDF result extraction.
+* Firebase Firestore cloud database integration.
+* Automated Minor Degree seat allocation workflow.
+* Dynamic Excel report generation using Pandas and OpenPyXL.
+* Production deployment on Render.
+* Environment-based configuration using Python Dotenv.
+* Role-based workflow separation for Students and Faculty.
 
 ---
 
@@ -93,23 +154,89 @@ The system allows students to upload result PDFs, automatically extracts academi
 ├── mdm_logic.py
 ├── models.py
 ├── requirements.txt
-├── static/
-├── templates/
 ├── vercel.json
+├── static/
+│   ├── css/
+│   ├── js/
+│   └── assets/
+├── templates/
+│   ├── index.html
+│   ├── login.html
+│   ├── register.html
+│   ├── dashboard.html
+│   └── faculty_dashboard.html
 └── README.md
 ```
 
 ---
 
-## Key Functionalities
+## Local Setup
 
-* AI-based Result Analysis
-* Student & Faculty Dashboards
-* Firestore Database Integration
-* Minor Degree Seat Allocation
-* Excel Report Generation
-* Authentication and Session Management
-* PDF Processing and Data Extraction
+### Clone Repository
+
+```bash
+git clone https://github.com/sayalisali123/Result-analysis_mdm.git
+cd Result-analysis_mdm
+```
+
+### Create Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+### Activate Virtual Environment
+
+Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+Linux/Mac:
+
+```bash
+source venv/bin/activate
+```
+
+### Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Configure Environment Variables
+
+Create a `.env` file:
+
+```env
+SECRET_KEY=your_secret_key
+GEMINI_API_KEY=your_gemini_api_key
+FIREBASE_CREDENTIALS_PATH=firebase-key.json
+```
+
+### Run Application
+
+```bash
+python app.py
+```
+
+Application will run at:
+
+```text
+http://127.0.0.1:5001
+```
+
+---
+
+## Environment Variables
+
+| Variable                  | Description                                    |
+| ------------------------- | ---------------------------------------------- |
+| SECRET_KEY                | Flask Secret Key                               |
+| GEMINI_API_KEY            | Google Gemini API Key                          |
+| FIREBASE_CREDENTIALS_PATH | Firebase Service Account JSON Path             |
+| FIREBASE_CREDENTIALS      | Optional JSON credentials for cloud deployment |
 
 ---
 
@@ -117,14 +244,40 @@ The system allows students to upload result PDFs, automatically extracts academi
 
 * Email Verification
 * OTP Authentication
-* Role-Based Access Control
+* Role-Based Access Control (RBAC)
 * Analytics Dashboard
 * Real-Time Notifications
 * Multi-Institution Support
-* Advanced Reporting and Visualization
+* Enhanced AI Insights
+* Data Visualization Dashboard
+* Performance Prediction Models
+
+---
+
+## Deployment
+
+The application is deployed using:
+
+* Render (Hosting Platform)
+* Firebase Firestore (Database)
+* Google Gemini AI (Result Analysis)
 
 ---
 
 ## Author
 
-Developed as an academic management solution for automating result analysis and minor degree allocation workflows using AI and cloud technologies.
+### Sayali Sali
+
+Computer Science Student | Python Developer | AI & Web Development Enthusiast
+
+GitHub:
+https://github.com/sayalisali123
+
+LinkedIn:
+https://result-analysis-mdm.onrender.com
+
+---
+
+## License
+
+This project is developed for educational and academic purposes.
