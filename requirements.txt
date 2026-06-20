@@ -6,5 +6,5 @@ pandas
 pdfplumber
 google-genai
 python-dotenv
- openpyxl
+openpyxl
 gunicorn

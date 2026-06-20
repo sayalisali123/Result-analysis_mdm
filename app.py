@@ -23,8 +23,7 @@ from extractor import extract_result_data
 from mdm_logic import seat_allotment
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'super-secret-key-for-development' # Change in production
-
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret-key')
 # Use /tmp for Vercel, and local uploads/ for Windows/local dev
 if os.name == 'nt':
     UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
@@ -37,25 +36,33 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 # Initialize Firebase Admin SDK with robust handling
 firebase_creds_json = os.environ.get('FIREBASE_CREDENTIALS')
 firebase_creds_path = os.environ.get('FIREBASE_CREDENTIALS_PATH')
-local_firebase_file = os.path.join(os.path.dirname(__file__), "student-portal-9f4f6-firebase-adminsdk-fbsvc-614a27b548.json")
+local_firebase_file = os.path.join(
+    os.path.dirname(__file__),
+    "student-portal-9f4f6-firebase-adminsdk-fbsvc-614a27b548.json"
+)
 
 cred = None
+
 if firebase_creds_json:
     try:
         cred_dict = json.loads(firebase_creds_json)
         cred = credentials.Certificate(cred_dict)
     except Exception as e:
         print(f"Failed to load Firebase credentials from env JSON: {e}")
+
 elif firebase_creds_path and os.path.exists(firebase_creds_path):
     cred = credentials.Certificate(firebase_creds_path)
+
 elif os.path.exists(local_firebase_file):
     cred = credentials.Certificate(local_firebase_file)
+
 else:
     print("Firebase credentials not found. Continuing without Firebase (limited functionality).")
 
+# Initialize Firebase safely
 if cred and not firebase_admin._apps:
     firebase_admin.initialize_app(cred)
-    db = firestore.client(database_id="native-db")
+    db = firestore.client()   # ✅ FIX: removed database_id="native-db"
 else:
     # Fallback dummy Firestore to prevent crashes when credentials are missing
     class DummyFirestore:
@@ -78,6 +85,7 @@ else:
             return DummyDoc()
         def set(self, *args, **kwargs):
             pass
+
     db = DummyFirestore()
 
 login_manager.init_app(app)
