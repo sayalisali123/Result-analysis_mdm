@@ -274,8 +274,7 @@ GitHub:
 https://github.com/sayalisali123
 
 LinkedIn:
-https://result-analysis-mdm.onrender.com
-
+https://www.linkedin.com/in/sayalisali2004/
 ---
 
 ## License
